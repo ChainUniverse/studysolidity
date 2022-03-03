@@ -42,4 +42,17 @@ contract SimpleContract {
         require(newOwner != address(0), "New owner cannot be zero address");
         owner = newOwner;
     }
+    
+    function incrementValue() public returns (uint256) {
+        value += 1;
+        emit ValueUpdated(value, msg.sender);
+        return value;
+    }
+    
+    function resetContract() public onlyOwner {
+        value = 0;
+        message = "Contract Reset";
+        emit ValueUpdated(0, msg.sender);
+        emit MessageUpdated("Contract Reset", msg.sender);
+    }
 }
